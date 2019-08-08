@@ -1,17 +1,16 @@
 import React from 'react';
-import Counter from './Counter';
 
 class App extends React.Component {
 
   state = {
-    count: null
+    count: 0
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch('http://localhost:3001/counts/1')
-      .then( res => res.json())
-      .then( (result) => {
-        this.setState({ 
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
           count: result.count
         })
       })
@@ -20,13 +19,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        { 
-          this.state.count != null 
-            ?
-          <Counter count={this.state.count}/>
-            :
-          null
-        } 
+        <h1 onClick={() => {
+          this.setState({ count: this.state.count + 1 })
+        }}>
+          {this.state.count}
+        </h1>
       </div>
     );
   }
