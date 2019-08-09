@@ -1,33 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-class App extends React.Component {
 
-  state = {
+function App() {
+
+  // state = {
+  //   count: 0
+  // }
+
+  // componentDidMount() {
+  //   fetch('http://localhost:3001/counts/1')
+  //     .then(res => res.json())
+  //     .then((result) => {
+  //       this.setState({
+  //         count: result.count
+  //       })
+  //     })
+  // }
+
+  let [ value, incrementValue ] = useState({
     count: 0
-  }
+  })
 
-  componentDidMount() {
-    fetch('http://localhost:3001/counts/1')
-      .then(res => res.json())
-      .then((result) => {
-        this.setState({
-          count: result.count
-        })
-      })
-  }
+  useEffect( () => {
+      fetch('http://localhost:3000/counts/1')
+          .then( res => res.json())
+          .then( count => incrementValue(count))
+  }, [] )
 
-  render() {
     return (
       <div>
         <h1 onClick={() => {
-          this.setState({ count: this.state.count + 1 })
-        }}>
-          {this.state.count}
+          incrementValue({ 
+            count: ++value.count
+          })
+        }} >
+          {value.count}
         </h1>
       </div>
     );
-  }
-
 }
+
 
 export default App;
